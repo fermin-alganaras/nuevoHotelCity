@@ -1,0 +1,19 @@
+
+ @import "./../../sass/variables";
+
+  .imgWrapper {
+      max-height: 80%;
+      margin: 1% 0%;
+    }
+
+    .modal-img {
+      width: 100%;
+    }
+
+  .gallery-title {
+    margin: auto;
+    margin-bottom: 50px;
+    width: 50%;
+    text-align: center;
+    color: $secondaryColor;
+  }

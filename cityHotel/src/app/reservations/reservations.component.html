@@ -1,0 +1,109 @@
+<div class="banner">
+  <h1 class="primary-title">Nuevo Hotel City</h1>
+  <img src="{{ASSETS_PATH}}citySkyline.png" class="cityBanner" alt="">
+</div>
+<div class="container">
+  <div class="row">
+      <ul class="nav nav-tabs nh-tab-container" id="myTab" role="tablist">
+      <li class="nav-item">
+        <a class="nav-link active disabled" id="home-tab" data-toggle="tab" href="#personalInfo" #personalInformation role="tab" aria-controls="personalInfo" aria-selected="true">Informacion Personal</a>
+      </li>
+      <li class="nav-item">
+        <a class="nav-link disabled" id="profile-tab" data-toggle="tab" href="#reservationData" #reservationData role="tab" aria-controls="reservationData" aria-selected="false">Datos de Reserva</a>
+      </li>
+      <li class="nav-item">
+        <a class="nav-link disabled" id="contact-tab" data-toggle="tab" href="#confirmation" #confirmation role="tab" aria-controls="confirmation" aria-selected="false">Confirmacion</a>
+      </li>
+    </ul>
+  </div>
+  <div class="row">
+    <div class="col-lg-5 nh-tab">
+        <div class="tab-content " id="reservationContent">
+          <div class="tab-pane fade show active" id="personalInfo" role="tabpanel" aria-labelledby="home-tab">
+          <form #personalInfo="ngForm">
+            <div class="form-group">
+              <label for="name">Nombre/s</label>
+              <input type="text" name="name" required [(ngModel)]="info.name" class="form-control validate" value="" placeholder="Nombre">
+            </div>
+            <div class="form-group">
+              <label for="lastName">Apellido</label>
+              <input type="text" name="lastName" required [(ngModel)]="info.lastName" class="form-control validate" value="" placeholder="Apellido">
+            </div>
+            <div class="form-group">
+              <label for="email">Email</label>
+              <input type="email" name="email" class="form-control validate" required [(ngModel)]="info.email" [email]="true" id="email" aria-describedby="emailHelp" placeholder="email">
+            </div>
+            <div class="form-group">
+              <label for="phone">Telefono</label>
+              <input type="tel" (keypress)="validatePhone($event)" pattern=".{10,}" name="phone" class="form-control validate" required [(ngModel)]="info.phone" id="phone" placeholder="ej: 261 555 5555">
+            </div>
+
+            <button type="submit" [disabled]="!personalInfo.valid" (click)='nextStep(personalInformation, reservationData)' class="btn btn-success next-submit">Siguiente</button>
+
+          </form>
+        </div>
+
+        <div class="tab-pane fade" id="reservationData" role="tabpanel" aria-labelledby="profile-tab">
+          <form #reservationInfo=ngForm>
+            <div class="">
+              <label for="">Fechas</label>
+              <form #myForm="ngForm" novalidate>
+                  <my-date-range-picker name="mydaterange" [options]="myDateRangePickerOptions"
+                                  [(ngModel)]="dates" required></my-date-range-picker>
+              </form>
+            </div>
+            <div class="form-group">
+              <div class="form-group">
+                <label for="adults">Adultos</label>
+                <input type="number" name="adults" min="1" #adults class="form-control validate" required [(ngModel)]="info.reservation.adults" value="1">
+              </div>
+              <div *ngIf="adults.value > 1" class="form-group">
+                <div class="form-check">
+                  <input class="form-check-input" type="radio" name="bedType" [(ngModel)]="info.reservation.bedType" required id="queen" value="Queen" checked>
+                  <label class="form-check-label" for="queenBed">
+                    Cama Doble
+                  </label><img class="bedIcon" src="{{ASSETS_PATH}}queenBed-icon.png" alt="">
+                </div>
+                <div class="form-check">
+                  <input class="form-check-input" type="radio" name="bedType" [(ngModel)]="info.reservation.bedType" required id="individual" value="IndividualBed">
+                  <label class="form-check-label" for="individualBed">
+                    Camas Individuales
+                  </label><img class="bedIcon" src="{{ASSETS_PATH}}singleBed-icon.png" alt="">
+                </div>
+              </div>
+              <div class="form-group">
+                <label for="kids">Niños</label>
+                <input #kidsInput type="number" name="kids" min="0" class="form-control" [(ngModel)]="info.reservation.kids" placeholder="0">
+              </div>
+              <div class="form-group">
+                <label for="additionalInformation">Informacion Adicional</label>
+                <textarea class="form-control resize-none" id="additionalInformation" [(ngModel)]="info.reservation.additionalInformation" name="additionalInformation" rows="3"></textarea>
+              </div>
+
+              <button type="submit" (click)='nextStep(reservationData, personalInformation)' class="btn btn-success previous-submit">Anterior</button>
+              <button type="submit" [disabled]="!reservationInfo.valid" (click)='nextStep(reservationData, confirmation)' class="btn btn-success next-submit">Siguiente</button>
+            </div>
+          </form>
+        </div>
+
+        <div class="tab-pane fade" id="confirmation" role="tabpanel" aria-labelledby="contact-tab">
+          <form #confirmationInfo=ngForm>
+            <div class="form-group">
+              <div class="">
+                <h4>{{info.name}} {{info.lastName}}</h4><br>
+                <h6>Email: {{info.email}}</h6><br>
+                <h6>Fechas: {{dates.beginDate.day}}/{{dates.beginDate.month}}/{{dates.beginDate.year}} - {{dates.endDate.day}}/{{dates.endDate.month}}/{{dates.endDate.year}}</h6><br>
+                <h6>Adultos: {{info.reservation.adults}}</h6><br>
+                <h6>Tipo de cama: {{info.reservation.bedType }}</h6><br>
+                <h6 *ngIf="kidsInput.value > 0">Menores: {{info.reservation.kids}}</h6><br>
+                  <p>{{info.reservation.additionalInformation}}</p>
+              </div>
+              <button type="submit" [disabled]="!confirmationInfo.valid" (click)='nextStep(confirmation, reservationData)' class="btn btn-success previous-submit">Anterior</button>
+              <button type="submit" [disabled]="!confirmationInfo.valid" (click)='confirmReservation()' class="btn btn-success next-submit">Reservar</button>
+            </div>
+          </form>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

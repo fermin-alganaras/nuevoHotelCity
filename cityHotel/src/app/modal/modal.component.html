@@ -1,0 +1,11 @@
+<div class="modal-backdrop fade in" [style.display]="showModal ? 'block' : 'none'"></div>
+  <div class="modal" tabindex="-1" role="dialog" style="display: block" [style.display]="showModal ? 'block' : 'none'">
+     <div class="modal-dialog">
+        <div class="modal-popup">
+          <div class="popup-title">
+            <button (click)="closeModal()" name="button">dsdfsd</button>
+          </div>
+        <ng-content></ng-content>
+      </div>
+  </div>
+</div>

@@ -1,0 +1,73 @@
+@import 'variables';
+
+
+body, html{
+  font-family: "Times New Roman", Times, serif;
+  margin: 0px;
+  padding: 0px;
+  height: 100%;
+  width: 100%;
+}
+
+.banner {
+  margin: 100px 0px;
+
+  .indexBanner {
+      max-width: 100%;
+  }
+
+  .cityBanner{
+    margin: auto;
+    margin-left: 38%;
+    margin-right: 38%;
+    margin-bottom: 100px;
+    width: 24%;
+    height: 200px;
+    z-index: 888;
+  }
+
+  .primary-title {
+      margin: auto;
+      margin-top: 60px;
+      position: absolute;
+      width: 100%;
+      text-align: center;
+      font-size: 70px;
+      color: $secondaryColor;
+  }
+}
+
+.nh-pull-right {
+  float: right;
+}
+
+.nh-pull-left {
+  float: left;
+}
+
+@media (#{$nh-smaller-than-tablet}) {
+  .sm-hide {
+    display: none;
+  }
+  .sm-visible {
+    display: block !important;
+  }
+}
+
+@media (#{$nh-smaller-than-desktop}) {
+  .md-hide {
+    display: none;
+  }
+  .md-visible {
+    display: block !important;
+  }
+}
+
+@media (#{$nh-gratter-than-tablet}) {
+  .lg-hide {
+    display: none;
+  }
+  .lg-visible {
+    display: block !important;
+  }
+}

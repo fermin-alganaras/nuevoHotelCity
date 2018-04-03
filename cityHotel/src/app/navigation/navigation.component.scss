@@ -1,0 +1,18 @@
+@import './../../sass/variables';
+
+nav {
+  background-color: $primaryColor;
+  margin-bottom: 2%;
+
+  button {
+    color: white !important;
+  }
+
+  a {
+    padding: 1% 2%;
+    white-space: nowrap;
+    color: white !important;
+    font-weight: bold;
+    font-size: 20px;
+  }
+}

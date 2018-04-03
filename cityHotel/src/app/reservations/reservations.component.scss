@@ -1,0 +1,42 @@
+@import './../../sass/variables';
+@import './../../sass/nhStyles';
+
+.banner {
+  margin: 0px;
+}
+
+.bedIcon {
+  width: 20px;
+  margin-left: 20px;
+}
+
+.nh-tab-container {
+  margin: auto;
+  margin-bottom: 30px;
+}
+.nh-tab {
+  margin: auto;
+  margin-bottom: 30px;
+}
+
+.next-submit {
+  float: right;
+}
+
+.previous-submit {
+  float: left;
+}
+
+.resize-none {
+  resize: none;
+}
+
+.validate {
+  &.ng-valid[required], .ng-valid.required  {
+    border-left: 5px solid #42A948; /* green */
+  }
+
+  &.ng-invalid:not(form)  {
+    border-left: 5px solid $primaryColor; /* red */
+  }
+}

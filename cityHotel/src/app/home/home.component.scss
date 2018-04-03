@@ -1,0 +1,31 @@
+@import './../../sass/variables';
+@import './../../sass/nhStyles';
+
+
+
+
+.secondary-title {
+    margin: auto;
+    margin-top: 70px;
+    margin-bottom: 50px;
+    width: 50%;
+    text-align: center;
+    font-size: 60px;
+    color: $secondaryColor;
+}
+
+.thumbnailContainer {
+  margin-bottom: 70px;
+  max-width: 95%;
+  border: 1px solid $secondaryColor;
+
+  .thumbnailImg {
+    max-width: 100% ;
+  }
+
+  .thumbnailCaption {
+    font-size: 18px;
+    margin: 15px;
+    color: $secondaryColor;
+  }
+}

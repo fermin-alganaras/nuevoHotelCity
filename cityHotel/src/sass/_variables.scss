@@ -1,0 +1,15 @@
+$primaryColor: #ffa50094;
+$secondaryColor: #adadad;
+
+
+$nh-smaller-than-mobile    : "max-width: 399px" !default;
+$nh-smaller-than-phablet   : "max-width: 549px" !default;
+$nh-smaller-than-tablet    : "max-width: 768px" !default;
+$nh-smaller-than-desktop   : "max-width: 999px" !default;
+$nh-smaller-than-desktophd : "max-width: 1199px" !default;
+
+$nh-gratter-than-mobile    : "min-width: 399px" !default;
+$nh-gratter-than-phablet   : "min-width: 549px" !default;
+$nh-gratter-than-tablet    : "min-width: 768px" !default;
+$nh-gratter-than-desktop   : "min-width: 999px" !default;
+$nh-gratter-than-desktophd : "min-width: 1199px" !default;

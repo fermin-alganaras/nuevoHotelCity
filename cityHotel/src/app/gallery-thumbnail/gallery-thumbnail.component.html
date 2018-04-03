@@ -1,0 +1,10 @@
+
+<img class="galleryImg {{image.orientation}}" (click)="onOpen()" src="{{ImagesPath}}{{image.name}}" alt="">
+
+
+<nh-modalComponent #galleryImageModal id="{{image.name}}"
+   [showModal]="isModalOpen"
+   (close)="onClose()"
+   >
+  <img src="{{ImagesPath}}{{image.name}}" alt="">
+ </nh-modalComponent>

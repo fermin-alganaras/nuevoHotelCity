@@ -1,0 +1,10 @@
+<div class="">
+  <h2 class="gallery-title">Nuestras Instalaciones</h2>
+</div>
+<div class="container">
+  <div class="row">
+    <div class="col-lg-3 imgWrapper" *ngFor="let image of galleryService.galleryImages">
+      <nh-gallery-thumbnail [image]="image"></nh-gallery-thumbnail>
+    </div>
+  </div>
+</div>
