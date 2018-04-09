@@ -5,8 +5,12 @@ body, html{
   font-family: "Times New Roman", Times, serif;
   margin: 0px;
   padding: 0px;
-  height: 100%;
+  min-height: 100%;
   width: 100%;
+}
+
+button:focus {
+  outline: 1px #ffffffbf;
 }
 
 .banner {
@@ -24,6 +28,10 @@ body, html{
     width: 24%;
     height: 200px;
     z-index: 888;
+
+    @media (#{$nh-smaller-than-desktop}) {
+
+    }
   }
 
   .primary-title {

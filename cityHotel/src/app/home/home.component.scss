@@ -2,8 +2,6 @@
 @import './../../sass/nhStyles';
 
 
-
-
 .secondary-title {
     margin: auto;
     margin-top: 70px;
@@ -12,11 +10,18 @@
     text-align: center;
     font-size: 60px;
     color: $secondaryColor;
+
+    @media (#{$nh-smaller-than-tablet}) {
+      width: 100%;
+      font-size: 38px;
+      margin-top: 35px;
+      margin-bottom: 25px;
+    }
 }
 
 .thumbnailContainer {
   margin-bottom: 70px;
-  max-width: 95%;
+  max-width: 100%;
   border: 1px solid $secondaryColor;
 
   .thumbnailImg {

@@ -7,8 +7,11 @@ export class Reservation {
   additionalInformation: String;
   fromDate: NhDate;
   toDate: NhDate;
+  nights: number;
 
   constructor(){
     this.adults = 1;
+    this.kids = 0;
+    this.nights = 1;
   }
 }

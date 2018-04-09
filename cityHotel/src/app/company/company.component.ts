@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, Inject } from '@angular/core';
 
 @Component({
   selector: 'nh-company',
@@ -7,7 +7,7 @@ import { Component, OnInit } from '@angular/core';
 })
 export class CompanyComponent implements OnInit {
 
-  constructor() { }
+  constructor(@Inject('Assets') private ASSETS_PATH) { }
 
   ngOnInit() {
   }

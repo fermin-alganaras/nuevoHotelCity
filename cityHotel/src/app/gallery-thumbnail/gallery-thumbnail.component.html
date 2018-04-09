@@ -1,10 +1,12 @@
+<div class="galleryItem">
+  <img class="galleryImg {{image.orientation}}" (click)="open(content)" src="{{ImagesPath}}{{image}}" alt="">
+</div>
 
-<img class="galleryImg {{image.orientation}}" (click)="onOpen()" src="{{ImagesPath}}{{image.name}}" alt="">
 
-
-<nh-modalComponent #galleryImageModal id="{{image.name}}"
-   [showModal]="isModalOpen"
-   (close)="onClose()"
-   >
-  <img src="{{ImagesPath}}{{image.name}}" alt="">
- </nh-modalComponent>
+<!-- modal -->
+<ng-template #content let-c="close" let-d="dismiss">
+    <img (click)="open(content)" src="{{ImagesPath}}{{image}}" alt="">
+    <div class="modal-footer">
+    <button type="button" class="btn btn-outline-dark" (click)="c('Close click')">Cerrar</button>
+  </div>
+</ng-template>

@@ -1,30 +1,41 @@
 import { BrowserModule } from '@angular/platform-browser';
 import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
+import {NgbModule} from '@ng-bootstrap/ng-bootstrap';
 
 import { AppComponent } from './app.component';
 import { NavigationComponent } from './navigation/navigation.component';
 import { GalleryComponent } from './gallery/gallery.component';
 import { GalleryThumbnailComponent } from './gallery-thumbnail/gallery-thumbnail.component';
-import { ConstantsService } from './constants.service';
-import { GalleryService } from './gallery.service';
-import { AutomatedMailService } from './automated.mail.service';
+import { ConstantsService } from './services/constants.service';
+import { GalleryService } from './services/gallery.service';
+import { AutomatedMailService } from './services/automated.mail.service';
+import { PricingService } from './services/pricing-service.service';
+import { PricingResolverService } from "./services/resolvers/pricing-resolver.service";
 import { ReservationsComponent } from './reservations/reservations.component';
 import { HomeComponent } from './home/home.component';
-import { PricesComponent } from './prices/prices.component';
 import { CompanyComponent } from './company/company.component';
-import { ModalComponent } from './modal/modal.component';
 import { FormsModule }   from '@angular/forms';
 import { MyDateRangePickerModule } from './../../node_modules/mydaterangepicker/dist/my-date-range-picker.module';
 import { HttpClientModule } from '@angular/common/http';
+import { GalleryResolverService } from './services/resolvers/gallery-resolver.service';
 
 const appRoutes: Routes = [
-  {path: 'gallery', component: GalleryComponent},
-  {path: 'reservations', component: ReservationsComponent},
-  {path: 'home', component: HomeComponent},
-  {path: 'prices', component: PricesComponent},
-  {path: 'ourselves', component: CompanyComponent},
-  {path: '', redirectTo:'/home', pathMatch: 'full'}
+  { path: 'gallery',
+    component: GalleryComponent,
+    resolve: {
+      galleryImages: GalleryResolverService
+    }
+  },
+  { path: 'reservations',
+    component: ReservationsComponent,
+    resolve: {
+      rooms: PricingResolverService
+    }
+  },
+  { path: 'home', component: HomeComponent },
+  { path: 'ourselves', component: CompanyComponent },
+  { path: '', redirectTo:'/home', pathMatch: 'full' }
 ];
 
 @NgModule({
@@ -35,25 +46,27 @@ const appRoutes: Routes = [
     GalleryThumbnailComponent,
     ReservationsComponent,
     HomeComponent,
-    PricesComponent,
-    CompanyComponent,
-    ModalComponent
+    CompanyComponent
   ],
   imports: [
     BrowserModule,
     RouterModule.forRoot(appRoutes),
+    NgbModule.forRoot(),
     FormsModule,
     MyDateRangePickerModule,
     HttpClientModule
   ],
   providers: [
+    GalleryResolverService,
+    PricingResolverService,
     {provide: "CONSTANTS", useClass: ConstantsService},
     {provide: "GalleryService", useClass: GalleryService},
+    {provide: "PricingService", useClass: PricingService},
     {provide: "AutomatedMailService", useClass: AutomatedMailService},
-    {provide: "GalleryImagesPath", useValue: "./../../assets/gallery/"},
-    {provide: "Assets", useValue: "./../../assets/"},
+    {provide: "GalleryImagesPath", useValue: "http://192.168.0.5:8080/gallery/"},
+    {provide: "Assets", useValue: "http://192.168.0.5:8080/"},
     {provide: "HOTEL_MAIL", useValue: "fermin.alganaras@gmail.com"},
-    {provide: "HOTEL_CITY_REST_URL", useValue: "http://localhost:8080"}
+    {provide: "HOTEL_CITY_REST_URL", useValue: "http://192.168.0.5:8080"}
   ],
   bootstrap: [AppComponent]
 })

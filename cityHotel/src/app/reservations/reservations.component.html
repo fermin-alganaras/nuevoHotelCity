@@ -1,21 +1,30 @@
-<div class="banner">
+<div class="banner sm-hide">
   <h1 class="primary-title">Nuevo Hotel City</h1>
   <img src="{{ASSETS_PATH}}citySkyline.png" class="cityBanner" alt="">
 </div>
-<div class="container">
+<div *ngIf="!sendingRequest && !responseRecieved" class="container">
   <div class="row">
       <ul class="nav nav-tabs nh-tab-container" id="myTab" role="tablist">
       <li class="nav-item">
-        <a class="nav-link active disabled" id="home-tab" data-toggle="tab" href="#personalInfo" #personalInformation role="tab" aria-controls="personalInfo" aria-selected="true">Informacion Personal</a>
+        <a class="nav-link active disabled active-tab" id="home-tab" data-toggle="tab" href="#personalInfo" #personalInformation role="tab" aria-controls="personalInfo" aria-selected="true">Informacion Personal</a>
       </li>
       <li class="nav-item">
-        <a class="nav-link disabled" id="profile-tab" data-toggle="tab" href="#reservationData" #reservationData role="tab" aria-controls="reservationData" aria-selected="false">Datos de Reserva</a>
+        <a class="nav-link disabled active-tab" id="profile-tab" data-toggle="tab" href="#reservationData" #reservationData role="tab" aria-controls="reservationData" aria-selected="false">Datos de Reserva</a>
       </li>
       <li class="nav-item">
-        <a class="nav-link disabled" id="contact-tab" data-toggle="tab" href="#confirmation" #confirmation role="tab" aria-controls="confirmation" aria-selected="false">Confirmacion</a>
+        <a class="nav-link disabled active-tab" id="contact-tab" data-toggle="tab" href="#confirmation" #confirmation role="tab" aria-controls="confirmation" aria-selected="false">Confirmacion</a>
       </li>
     </ul>
   </div>
+  <!-- pricing -->
+  <div class="row">
+    <div class="priceContainer sm-visible md-visible lg-hide">
+      <div class="priceTag" ([ngModel])="info.myPrice" #single>
+        <h3>Su precio: </h3><h1><span>${{myPrice}}</span></h1>
+      </div>
+    </div>
+  </div>
+
   <div class="row">
     <div class="col-lg-5 nh-tab">
         <div class="tab-content " id="reservationContent">
@@ -48,14 +57,14 @@
             <div class="">
               <label for="">Fechas</label>
               <form #myForm="ngForm" novalidate>
-                  <my-date-range-picker name="mydaterange" [options]="myDateRangePickerOptions"
+                  <my-date-range-picker name="mydaterange" (dateRangeChanged)="onDateRangeChanged($event)" [options]="myDateRangePickerOptions"
                                   [(ngModel)]="dates" required></my-date-range-picker>
               </form>
             </div>
             <div class="form-group">
               <div class="form-group">
                 <label for="adults">Adultos</label>
-                <input type="number" name="adults" min="1" #adults class="form-control validate" required [(ngModel)]="info.reservation.adults" value="1">
+                <input type="number" name="adults" min="1" #adults class="form-control validate" (input)="updatePrice($event)" required [(ngModel)]="info.reservation.adults" value="1">
               </div>
               <div *ngIf="adults.value > 1" class="form-group">
                 <div class="form-check">
@@ -73,7 +82,7 @@
               </div>
               <div class="form-group">
                 <label for="kids">Niños</label>
-                <input #kidsInput type="number" name="kids" min="0" class="form-control" [(ngModel)]="info.reservation.kids" placeholder="0">
+                <input #kidsInput type="number" name="kids" min="0" class="form-control" (input)="updatePrice($event)" [(ngModel)]="info.reservation.kids" value="0">
               </div>
               <div class="form-group">
                 <label for="additionalInformation">Informacion Adicional</label>
@@ -87,7 +96,7 @@
         </div>
 
         <div class="tab-pane fade" id="confirmation" role="tabpanel" aria-labelledby="contact-tab">
-          <form #confirmationInfo=ngForm>
+          <form *ngIf="!sendingRequest && !responseRecieved" #confirmationInfo=ngForm>
             <div class="form-group">
               <div class="">
                 <h4>{{info.name}} {{info.lastName}}</h4><br>
@@ -106,4 +115,22 @@
       </div>
     </div>
   </div>
+
+  <!-- pricing -->
+  <div class="priceContainer sm-hide md-hide">
+    <div class="priceTag" ([ngModel])="info.myPrice" #single>
+      <h3>Su precio: </h3><h1><span>${{myPrice}}</span></h1>
+    </div>
+  </div>
+</div>
+
+<div *ngIf="sendingRequest" class="black-screen sm-visible"></div>
+<img class="spinner" *ngIf="sendingRequest" src="{{ASSETS_PATH}}Loading_icon.gif" alt="">
+
+<div *ngIf="responseRecieved" class="responseRecieved">
+  <p>Su solicitud de reserva se ha enviado exitosamente<br>
+    <small>Revise su casilla de correo para confirmar</small>
+  </p>
+
+  <button type="button" class="btn btn-success" name="button" routerLink="/home">Terminar</button>
 </div>
