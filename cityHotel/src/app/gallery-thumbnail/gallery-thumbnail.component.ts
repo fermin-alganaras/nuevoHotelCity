@@ -11,7 +11,7 @@ export class GalleryThumbnailComponent implements OnInit {
 
   @Input() image;
 
-  constructor(@Inject('GalleryImagesPath') private ImagesPath,
+  constructor(@Inject('GalleryImagesPath') public ImagesPath,
               private modalService: NgbModal
              ) { }
 

@@ -31,7 +31,14 @@ export class AutomatedMailService {
   }
 
   public sendReservationReplyMail(requestInfo: any) {
-    let reservationReply = `<h1>Nuevo Hotel City</h1>
+    let reservationReply = `
+                              <link rel="stylesheet" href="${this.SASS_PATH}/reservationReply.scss">
+                              <div class="banner sm-hide lg-visible">
+                                <h1 class="primary-title">Nuevo Hotel City</h1>
+                                <img src="${this.ASSETS_PATH}citySkyline.png" class="cityBanner sm-hide lg-visible" alt="">
+                                <img class="indexBanner sm-hide lg-visible" src="{{ASSETS_PATH}}indexBanner.jpg" alt="">
+                              </div>
+                              <h1>Nuevo Hotel City</h1>
                               <h3><small>Mendoza Argentina</small></h3><br><br>
                               <p>Su reserva a nombre de ${requestInfo.name} esta siendo procesada
                               en instantes recibira respuesta de un representante del Hotel.
@@ -39,6 +46,7 @@ export class AutomatedMailService {
                               <p><small>Esto es un mensaje automatizado generado por www.nuevoHotelCity.com</small></p>`;
 
     let requestBody = new SendMailRequest(requestInfo.email, NO_REPLY_RESERVATION_RECIEVED, reservationReply);
+    console.log(reservationReply);
     this.sendEmail(requestBody).subscribe(
       response => {
         return response;
@@ -51,12 +59,14 @@ export class AutomatedMailService {
   private sendEmail(reqParams : SendMailRequest) {
     let json = JSON.stringify(reqParams);
     let params = "json="+json;
-    let url = this.HOTEL_CITY_REST_URL + '/send';
+    let url = this.HOTEL_CITY_REST_URL + '/mail';
     return this.http.post(url, params, {headers: headers});
   }
 
   constructor(@Inject("HOTEL_CITY_REST_URL") private HOTEL_CITY_REST_URL,
               @Inject('HOTEL_MAIL') private HOTEL_MAIL,
+              @Inject('Assets') public ASSETS_PATH,
+              @Inject('SASS_PATH') private SASS_PATH,
               private http: HttpClient) { }
 
 }

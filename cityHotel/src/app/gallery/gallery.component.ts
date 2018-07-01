@@ -21,7 +21,7 @@ export class GalleryComponent implements OnInit {
   }
 
   constructor(@Inject('GalleryService') private galleryService,
-              @Inject('GalleryImagesPath') private ImagesPath,
+              @Inject('GalleryImagesPath') public ImagesPath,
               private route: ActivatedRoute) {
                 this.galleryImages = this.route.snapshot.data.galleryImages;
               }

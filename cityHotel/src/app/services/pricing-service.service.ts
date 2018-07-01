@@ -6,7 +6,7 @@ export class PricingService {
 
   public getPrices(): any {
 
-    let url = this.HOTEL_CITY_REST_URL + '/roomPrices';
+    let url = this.HOTEL_CITY_REST_URL + '/prices';
     return this.http.get(url, {});
   }
 

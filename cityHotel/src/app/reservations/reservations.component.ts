@@ -98,9 +98,9 @@ export class ReservationsComponent implements OnInit {
    }
 
 
-  constructor(@Inject('Assets') private ASSETS_PATH,
+  constructor(@Inject('Assets') public ASSETS_PATH,
               @Inject('AutomatedMailService') private automatedMailService,
-              @Inject('CONSTANTS') private CONSTANTS,
+              @Inject('CONSTANTS') public CONSTANTS,
               private route: ActivatedRoute) {
                this.rooms = this.route.snapshot.data.rooms.rooms;
                this.myPrice = this.rooms[0].price;

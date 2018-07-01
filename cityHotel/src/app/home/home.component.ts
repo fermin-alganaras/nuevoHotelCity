@@ -7,7 +7,7 @@ import { Component, OnInit, Inject } from '@angular/core';
 })
 export class HomeComponent implements OnInit {
 
-  constructor(@Inject('Assets') private ASSETS_PATH) { }
+  constructor(@Inject('Assets') public ASSETS_PATH) { }
 
   ngOnInit() {
   }

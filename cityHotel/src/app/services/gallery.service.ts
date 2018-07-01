@@ -7,7 +7,7 @@ import { HttpClient, HttpHeaders, HttpParams } from '@angular/common/http';
   public getGalleryImages(): any {
     let params = new HttpParams().set('path', 'gallery');
 
-    let url = this.HOTEL_CITY_REST_URL + '/getImages';
+    let url = this.HOTEL_CITY_REST_URL + '/images';
     return this.http.get(url, {params});
   }
 

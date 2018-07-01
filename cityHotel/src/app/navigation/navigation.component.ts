@@ -7,7 +7,7 @@ import { Component, OnInit, Inject } from '@angular/core';
 })
 export class NavigationComponent implements OnInit {
 
-  constructor(@Inject('CONSTANTS') private CONSTANTS, @Inject('Assets') private ASSETS_PATH) { }
+  constructor(@Inject('CONSTANTS') public CONSTANTS, @Inject('Assets') public ASSETS_PATH) { }
 
   ngOnInit() {
   }
