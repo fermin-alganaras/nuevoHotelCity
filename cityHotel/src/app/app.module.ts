@@ -63,11 +63,11 @@ const appRoutes: Routes = [
     {provide: "GalleryService", useClass: GalleryService},
     {provide: "PricingService", useClass: PricingService},
     {provide: "AutomatedMailService", useClass: AutomatedMailService},
-    {provide: "GalleryImagesPath", useValue: "http://192.168.0.4:8080/gallery/"},
-    {provide: "Assets", useValue: "http://192.168.0.4:8080/"},
-    {provide: "SASS_PATH", useValue: "http://192.168.0.4:8080/sass/"},
+    {provide: "GalleryImagesPath", useValue: "http://192.168.0.4:8000/gallery/"},
+    {provide: "Assets", useValue: "http://192.168.0.4:8000/"},
+    {provide: "SASS_PATH", useValue: "http://192.168.0.4:8000/sass/"},
     {provide: "HOTEL_MAIL", useValue: "fermin.alganaras@gmail.com"},
-    {provide: "HOTEL_CITY_REST_URL", useValue: "http://192.168.0.4:8080/api/cityHotel"}
+    {provide: "HOTEL_CITY_REST_URL", useValue: "http://192.168.0.4:8000/api/cityHotel"}
   ],
   bootstrap: [AppComponent]
 })
