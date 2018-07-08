@@ -37,7 +37,7 @@ export class AutomatedMailService {
                               en instantes recibira respuesta de un representante del Hotel.
                               Por favor no responda a este mail.</p>
                               <p><small>Esto es un mensaje automatizado generado por www.nuevoHotelCity.com</small></p>
-                              <p>&copy; Nuevo Hotel City, Mendoza, Argentina<p>`;
+                              `;
 
     let requestBody = new SendMailRequest(requestInfo.email, NO_REPLY_RESERVATION_RECIEVED, reservationReply);
     console.log(reservationReply);
