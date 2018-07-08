@@ -82,6 +82,10 @@ export class ReservationsComponent implements OnInit {
      this.sendingRequest = true;
      this.info.reservation.fromDate = this.dates.beginDate;
      this.info.reservation.toDate = this.dates.endDate;
+     this.info.reservation.additionalInformation = this.info.reservation.additionalInformation || "N/A";
+     this.info.reservation.bedType = this.info.reservation.bedType || "Individual";
+
+     console.log(this.info);
 
      this.automatedMailService.sendReservationRequestMail(this.info).subscribe(
        response => {

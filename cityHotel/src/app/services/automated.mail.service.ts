@@ -14,16 +14,31 @@ export class AutomatedMailService {
   public sendReservationRequestMail(requestInfo: any) {
 
       let reservationRequestMessage = `
-                                <h1>Nuevo Hotel City</h1>
-                                <h3><small>Mendoza Argentina</small></h3><br><br>
+                                <img src="${this.ASSETS_PATH}hotelLogoMail.png" class="cityBanner sm-hide lg-visible" alt="">
                                 <h3>Solicitud de Reserva</h3>
-                                <label>Nombre: </label><h6>${requestInfo.name}</h6>
-                                <label>Email: Apellido: </label><h6>${requestInfo.name}</h6>
-                                <label>Cantidad de adultos: </label><h6>${requestInfo.adults}</h6>
-                                <label>Tipo de cama </label><h6>${requestInfo.bedType}</h6>
-                                <label>Cantidad de niños:</label><h6>${requestInfo.kids}</h6>
-                                <label>Fechas: </label><h6>${requestInfo.reservation.fromDate.day}/${requestInfo.reservation.fromDate.month}/${requestInfo.reservation.fromDate.year} - ${requestInfo.reservation.toDate.day}/${requestInfo.reservation.toDate.month}/${requestInfo.reservation.toDate.year}</h6>
-                                <label>Informacion adicional: </label><p>${requestInfo.additionalInformation}</p><br><br>
+                                <table style="border-collapse: collapse; font-family: arial, sans-serif; width: 100%;">
+                                  <tr>
+                                    <th style="border: 1px solid #dddddd; text-align: left; padding: 8px;">Nombre</th>
+                                    <th style="border: 1px solid #dddddd; text-align: left; padding: 8px;">Apellido</th>
+                                    <th style="border: 1px solid #dddddd; text-align: left; padding: 8px;">Mail</th>
+                                    <th style="border: 1px solid #dddddd; text-align: left; padding: 8px;">Adultos</th>
+                                    <th style="border: 1px solid #dddddd; text-align: left; padding: 8px;">Tipo de cama</th>
+                                    <th style="border: 1px solid #dddddd; text-align: left; padding: 8px;">Niños</th>
+                                    <th style="border: 1px solid #dddddd; text-align: left; padding: 8px;">Fechas</th>
+                                    <th style="border: 1px solid #dddddd; text-align: left; padding: 8px;">Informacion Adicional</th>
+                                  </tr>
+                                  <tr>
+                                    <td style="border: 1px solid #dddddd; text-align: left; padding: 8px;">${requestInfo.name}</td>
+                                    <td style="border: 1px solid #dddddd; text-align: left; padding: 8px;">${requestInfo.lastName}</td>
+                                    <td style="border: 1px solid #dddddd; text-align: left; padding: 8px;">${requestInfo.email}</td>
+                                    <td style="border: 1px solid #dddddd; text-align: left; padding: 8px;">${requestInfo.reservation.adults}</td>
+                                    <td style="border: 1px solid #dddddd; text-align: left; padding: 8px;">${requestInfo.reservation.bedType}</td>
+                                    <td style="border: 1px solid #dddddd; text-align: left; padding: 8px;">${requestInfo.reservation.kids}</td>
+                                    <td style="border: 1px solid #dddddd; text-align: left; padding: 8px;">${requestInfo.reservation.fromDate.day}/${requestInfo.reservation.fromDate.month}/${requestInfo.reservation.fromDate.year} - ${requestInfo.reservation.toDate.day}/${requestInfo.reservation.toDate.month}/${requestInfo.reservation.toDate.year}</td>
+                                    <td style="border: 1px solid #dddddd; text-align: left; padding: 8px;">${requestInfo.reservation.additionalInformation}</td>
+                                  </tr>
+                                </table>
+
                                 <p><small>Esto es un mensaje automatizado generado por www.nuevoHotelCity.com</small></p>`;
 
       let requestBody = new SendMailRequest(this.HOTEL_MAIL, RESERVATION_REQUEST, reservationRequestMessage);
@@ -33,7 +48,7 @@ export class AutomatedMailService {
   public sendReservationReplyMail(requestInfo: any) {
     let reservationReply = `
                               <img src="${this.ASSETS_PATH}hotelLogoMail.png" class="cityBanner sm-hide lg-visible" alt="">
-                              <p>Su reserva a nombre de ${requestInfo.name} esta siendo procesada
+                              <p>Su reserva a nombre de ${requestInfo.name} ${requestInfo.lastName} esta siendo procesada
                               en instantes recibira respuesta de un representante del Hotel.
                               Por favor no responda a este mail.</p>
                               <p><small>Esto es un mensaje automatizado generado por www.nuevoHotelCity.com</small></p>`;
