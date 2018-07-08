@@ -32,14 +32,7 @@ export class AutomatedMailService {
 
   public sendReservationReplyMail(requestInfo: any) {
     let reservationReply = `
-                              <link rel="stylesheet" href="${this.SASS_PATH}/reservationReply.scss">
-                              <div class="banner sm-hide lg-visible">
-                                <h1 class="primary-title">Nuevo Hotel City</h1>
-                                <img src="${this.ASSETS_PATH}citySkyline.png" class="cityBanner sm-hide lg-visible" alt="">
-                                <img class="indexBanner sm-hide lg-visible" src="{{ASSETS_PATH}}indexBanner.jpg" alt="">
-                              </div>
-                              <h1>Nuevo Hotel City</h1>
-                              <h3><small>Mendoza Argentina</small></h3><br><br>
+                              <img src="${this.ASSETS_PATH}hotelLogoMail.png" class="cityBanner sm-hide lg-visible" alt="">
                               <p>Su reserva a nombre de ${requestInfo.name} esta siendo procesada
                               en instantes recibira respuesta de un representante del Hotel.
                               Por favor no responda a este mail.</p>
