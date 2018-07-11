@@ -25,6 +25,10 @@ export class ReservationsComponent implements OnInit {
   myPrice: number;
 
 
+  checkAvailability() {
+    this.reservationService.checkAvailability(this.dates.beginDate, this.dates.endDate, this.info.reservation.adults, this.info.reservation.kids);
+  }
+
   onDateRangeChanged(event: IMyDateRangeModel) {
     let nights = (event.endEpoc - event.beginEpoc)/(60*60*24);
     this.info.reservation.nights = nights;
@@ -104,6 +108,7 @@ export class ReservationsComponent implements OnInit {
 
   constructor(@Inject('Assets') public ASSETS_PATH,
               @Inject('AutomatedMailService') private automatedMailService,
+              @Inject('ReservationService') private reservationService,
               @Inject('CONSTANTS') public CONSTANTS,
               private route: ActivatedRoute) {
                this.rooms = this.route.snapshot.data.rooms.rooms;

@@ -65,10 +65,8 @@ export class AutomatedMailService {
   }
 
   private sendEmail(reqParams : SendMailRequest) {
-    let json = JSON.stringify(reqParams);
-    let params = "json="+json;
     let url = this.HOTEL_CITY_REST_URL + '/mail';
-    return this.http.post(url, params, {headers: headers});
+    return this.http.post(url, reqParams, {headers: headers});
   }
 
   constructor(@Inject("HOTEL_CITY_REST_URL") private HOTEL_CITY_REST_URL,

@@ -10,6 +10,7 @@ import { GalleryThumbnailComponent } from './gallery-thumbnail/gallery-thumbnail
 import { ConstantsService } from './services/constants.service';
 import { GalleryService } from './services/gallery.service';
 import { AutomatedMailService } from './services/automated.mail.service';
+import { ReservationService } from './services/reservation.service';
 import { PricingService } from './services/pricing-service.service';
 import { PricingResolverService } from "./services/resolvers/pricing-resolver.service";
 import { ReservationsComponent } from './reservations/reservations.component';
@@ -63,11 +64,12 @@ const appRoutes: Routes = [
     {provide: "GalleryService", useClass: GalleryService},
     {provide: "PricingService", useClass: PricingService},
     {provide: "AutomatedMailService", useClass: AutomatedMailService},
-    {provide: "GalleryImagesPath", useValue: "https://nuevo-hotel-city-rest.herokuapp.com/gallery/"},
-    {provide: "Assets", useValue: "https://nuevo-hotel-city-rest.herokuapp.com/"},
-    {provide: "SASS_PATH", useValue: "https://nuevo-hotel-city-rest.herokuapp.com/sass/"},
+    {provide: "ReservationService", useClass: ReservationService},
+    {provide: "GalleryImagesPath", useValue: "http://localhost:8000/gallery/"},
+    {provide: "Assets", useValue: "http://localhost:8000/"},
+    {provide: "SASS_PATH", useValue: "http://localhost:8000/sass/"},
     {provide: "HOTEL_MAIL", useValue: "fermin.alganaras@gmail.com"},
-    {provide: "HOTEL_CITY_REST_URL", useValue: "https://nuevo-hotel-city-rest.herokuapp.com/api/cityHotel"}
+    {provide: "HOTEL_CITY_REST_URL", useValue: "http://localhost:8000/api/cityHotel"}
   ],
   bootstrap: [AppComponent]
 })

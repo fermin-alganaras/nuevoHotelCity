@@ -88,7 +88,7 @@
                 <label for="additionalInformation">Informacion Adicional</label>
                 <textarea class="form-control resize-none" id="additionalInformation" [(ngModel)]="info.reservation.additionalInformation" name="additionalInformation" rows="3"></textarea>
               </div>
-
+              <button type="submit" (click)='checkAvailability()' class="btn btn-success previous-submit">Comprobar Disponibilidad</button>
               <button type="submit" (click)='nextStep(reservationData, personalInformation)' class="btn btn-success previous-submit">Anterior</button>
               <button type="submit" [disabled]="!reservationInfo.valid" (click)='nextStep(reservationData, confirmation)' class="btn btn-success next-submit">Siguiente</button>
             </div>
