@@ -2,7 +2,7 @@
   <h1 class="primary-title">Nuevo Hotel City</h1>
   <img src="{{ASSETS_PATH}}citySkyline.png" class="cityBanner" alt="">
 </div>
-<div *ngIf="!sendingRequest && !responseRecieved" class="container">
+<div [hidden]="sendingRequest || (sendingRequest && responseRecieved)" class="container">
   <div class="row">
       <ul class="nav nav-tabs nh-tab-container" id="myTab" role="tablist">
       <li class="nav-item">
@@ -10,6 +10,9 @@
       </li>
       <li class="nav-item">
         <a class="nav-link disabled active-tab" id="profile-tab" data-toggle="tab" href="#reservationData" #reservationData role="tab" aria-controls="reservationData" aria-selected="false">Datos de Reserva</a>
+      </li>
+      <li class="nav-item">
+        <a class="nav-link disabled active-tab" id="profile-tab" data-toggle="tab" href="#creditCard" #creditCard role="tab" aria-controls="creditCard" aria-selected="false">Informacion de tarjeta</a>
       </li>
       <li class="nav-item">
         <a class="nav-link disabled active-tab" id="contact-tab" data-toggle="tab" href="#confirmation" #confirmation role="tab" aria-controls="confirmation" aria-selected="false">Confirmacion</a>
@@ -53,7 +56,7 @@
         </div>
 
         <div class="tab-pane fade" id="reservationData" role="tabpanel" aria-labelledby="profile-tab">
-          <form #reservationInfo=ngForm>
+          <form #reservationInfo="ngForm">
             <div class="">
               <label for="">Fechas</label>
               <form #myForm="ngForm" novalidate>
@@ -88,26 +91,92 @@
                 <label for="additionalInformation">Informacion Adicional</label>
                 <textarea class="form-control resize-none" id="additionalInformation" [(ngModel)]="info.reservation.additionalInformation" name="additionalInformation" rows="3"></textarea>
               </div>
-              <button type="submit" (click)='checkAvailability()' class="btn btn-success previous-submit">Comprobar Disponibilidad</button>
-              <button type="submit" (click)='nextStep(reservationData, personalInformation)' class="btn btn-success previous-submit">Anterior</button>
-              <button type="submit" [disabled]="!reservationInfo.valid" (click)='nextStep(reservationData, confirmation)' class="btn btn-success next-submit">Siguiente</button>
+              <div class="form-group nh-hide">
+                <div class="form-check">
+                  <input class="form-check-input" type="radio" name="bedType" [(ngModel)]="info.reservation.availability" required id="true" value="false">
+                </div>
+                <div class="form-check">
+                  <input class="form-check-input" type="radio" name="bedType" [(ngModel)]="info.reservation.availability" required id="false" value="false" checked>
+                </div>
+              </div>
+              <div class="form-group">
+                <button type="submit" (click)='checkAvailability()' class="btn btn-info availability-btn">Comprobar Disponibilidad</button>
+              </div>
+              <div class="form-group">
+                <button type="submit" (click)='nextStep(reservationData, personalInformation)' class="btn btn-success previous-submit">Anterior</button>
+                <button type="submit" [disabled]="!reservationInfo.valid" (click)='nextStep(reservationData, creditCard)' class="btn btn-success next-submit">Siguiente</button>
+              </div>
+
             </div>
           </form>
         </div>
 
+        <div class="tab-pane fade show" id="creditCard" role="tabpanel" aria-labelledby="home-tab">
+        <form #creditCardInfo="ngForm" id="creditCardForm">
+            <div class="form-group">
+              <label for="cardNumber">Numero de tarjeta</label>
+              <input class="form-control validate" [(ngModel)]="credit.cardNumber" #cardNumber required [ngModelOptions]="{standalone: true}" (keypress)="validateOnlyNumbers($event)" type="text" pattern="[0-9]{13,16}" id="cardNumber" data-checkout="cardNumber" placeholder="4509 9535 6623 3704" onselectstart="return false" onpaste="return false" onCopy="return false" onCut="return false" onDrag="return false" onDrop="return false" autocomplete=off />
+            </div>
+            <div class="form-group">
+              <label for="securityCode">Codigo de seguridad</label>
+              <input class="form-control validate" [(ngModel)]="credit.securityCode" #securityCode required [ngModelOptions]="{standalone: true}" (keypress)="validateOnlyNumbers($event)" type="text" id="securityCode" pattern="[0-9]{3,4}" data-checkout="securityCode" placeholder="123" onselectstart="return false" onpaste="return false" onCopy="return false" onCut="return false" onDrag="return false" onDrop="return false" autocomplete=off />
+            </div>
+            <div class="form-group">
+                <label for="cardExpirationMonth">Mes de caducidad</label>
+                <input class="form-control validate" [(ngModel)]="credit.expirationMonth" #expirationMonth required [ngModelOptions]="{standalone: true}" (keypress)="validateOnlyNumbers($event)" type="text" pattern="[0-9]{2}" id="cardExpirationMonth" data-checkout="cardExpirationMonth" placeholder="12" onselectstart="return false" onpaste="return false" onCopy="return false" onCut="return false" onDrag="return false" onDrop="return false" autocomplete=off />
+            </div>
+            <div class="form-group">
+                <label for="cardExpirationYear">Año de caducidad</label>
+                <input class="form-control validate" [(ngModel)]="credit.expirationYear" #expirationYear required [ngModelOptions]="{standalone: true}" (keypress)="validateOnlyNumbers($event)" type="text" pattern="[0-9]{2}" id="cardExpirationYear" data-checkout="cardExpirationYear" placeholder="18" onselectstart="return false" onpaste="return false" onCopy="return false" onCut="return false" onDrag="return false" onDrop="return false" autocomplete=off />
+            </div>
+            <div class="form-group">
+                <label for="cardholderName">Nombre (como aparece en la tarjeta)</label>
+                <input class="form-control validate" [(ngModel)]="credit.cardholderName" #cardholderName required [ngModelOptions]="{standalone: true}" (keypress)="validateOnlyLettersAndSpaces($event)" type="text" pattern="" id="cardholderName" data-checkout="cardholderName" />
+            </div>
+            <div class="form-group">
+              <label for="docType">Tipo de Documento</label>
+              <select class="form-control validate" id="docType" #docType data-checkout="docType" required [(ngModel)]="credit.docType.name" [ngModelOptions]="{standalone: true}">
+                <option *ngFor="let docType of docTypes" value="{{docType.name}}">{{docType.name}}</option>
+              </select>
+            </div>
+            <div class="form-group">
+              <label for="docNumber">Numero de Documento</label>
+              <input required [(ngModel)]="credit.docNumber" #docNumber class="form-control validate" (keypress)="validateNoSpecialChars($event)" type="text" id="docNumber" data-checkout="docNumber" [pattern]="docNumberPattern" placeholder="12345678" [ngModelOptions]="{standalone: true}"/>
+            </div>
+            <div class="form-group nh-hide">
+              <input type="hidden" name="token" value="{{token}}">
+            </div>
+        </form>
+              <div class="form-group">
+                <button type="submit" (click)='nextStep(creditCard, reservationData)' class="btn btn-success previous-submit">Anterior</button>
+                <button type="submit" [disabled]="!docType.validity.valid || !docNumber.validity.valid || !cardholderName.validity.valid || !expirationYear.validity.valid || !expirationMonth.validity.valid || !securityCode.validity.valid || !cardNumber.validity.valid" (click)='getPaymentMethodAndToken()' class="btn btn-success next-submit">Siguiente</button>
+              </div>
+      </div>
+
+
         <div class="tab-pane fade" id="confirmation" role="tabpanel" aria-labelledby="contact-tab">
           <form *ngIf="!sendingRequest && !responseRecieved" #confirmationInfo=ngForm>
             <div class="form-group">
-              <div class="">
+              <div>
                 <h4>{{info.name}} {{info.lastName}}</h4><br>
                 <h6>Email: {{info.email}}</h6><br>
                 <h6>Fechas: {{dates.beginDate.day}}/{{dates.beginDate.month}}/{{dates.beginDate.year}} - {{dates.endDate.day}}/{{dates.endDate.month}}/{{dates.endDate.year}}</h6><br>
                 <h6>Adultos: {{info.reservation.adults}}</h6><br>
-                <h6>Tipo de cama: {{info.reservation.bedType }}</h6><br>
                 <h6 *ngIf="kidsInput.value > 0">Menores: {{info.reservation.kids}}</h6><br>
                   <p>{{info.reservation.additionalInformation}}</p>
               </div>
-              <button type="submit" [disabled]="!confirmationInfo.valid" (click)='nextStep(confirmation, reservationData)' class="btn btn-success previous-submit">Anterior</button>
+              <div>
+                <div class="card-display">
+                  <img [src]="cardThumbnail" alt=""><br><br>
+                  <div class="number-name-tag">
+                    <p *ngIf="token != undefined">{{token.cardholder.identification.name}}</p>
+                    <p>{{cardNumberDisplay}}</p>
+                  </div>
+                  <p class="expirationTag">expiration: {{credit.expirationMonth}}/{{credit.expirationYear}}</p>
+                </div>
+
+              </div>
+              <button type="submit" [disabled]="!confirmationInfo.valid" (click)='nextStep(confirmation, creditCard)' class="btn btn-success previous-submit">Anterior</button>
               <button type="submit" [disabled]="!confirmationInfo.valid" (click)='confirmReservation()' class="btn btn-success next-submit">Reservar</button>
             </div>
           </form>
@@ -126,6 +195,24 @@
 
 <div *ngIf="sendingRequest" class="black-screen sm-visible"></div>
 <img class="spinner" *ngIf="sendingRequest" src="{{ASSETS_PATH}}Loading_icon.gif" alt="">
+
+
+<!-- modal -->
+<ng-template #availability let-c="close" let-d="dismiss">
+    <p class="available nh-align-center">Habitaciones Disponibles! Reserva ahora</p>
+    <div class="modal-footer">
+    <button type="button" class="btn btn-outline-dark" (click)="c('Close click')">Cerrar</button>
+  </div>
+</ng-template>
+
+<!-- modal -->
+<ng-template #error class="nh-modal" let-c="close" let-d="dismiss"  let-name="errorMessage">
+    <p class="nh-align-center">{{errorMessage}}</p>
+    <div class="modal-footer">
+    <button type="button" class="btn btn-outline-dark" (click)="c('Close click')">Cerrar</button>
+  </div>
+</ng-template>
+
 
 <div *ngIf="responseRecieved" class="responseRecieved">
   <p>Su solicitud de reserva se ha enviado exitosamente<br>

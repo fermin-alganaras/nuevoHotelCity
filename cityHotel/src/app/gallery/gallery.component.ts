@@ -13,10 +13,10 @@ export class GalleryComponent implements OnInit {
   lastPortrait = false;
   lastLandscape = false;
 
-  finishLoadPortrait(){
+  finishLoadPortrait() {
     this.lastPortrait = true;
   }
-  finishLoadLandscape(){
+  finishLoadLandscape() {
     this.lastLandscape = true;
   }
 

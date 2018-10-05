@@ -11,7 +11,7 @@ import { HttpClient, HttpHeaders, HttpParams } from '@angular/common/http';
     return this.http.get(url, {params});
   }
 
-  constructor(@Inject("HOTEL_CITY_REST_URL") private HOTEL_CITY_REST_URL,
+  constructor(@Inject('HOTEL_CITY_REST_URL') private HOTEL_CITY_REST_URL,
               private http: HttpClient) { }
 
 }

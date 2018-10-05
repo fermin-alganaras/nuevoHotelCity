@@ -14,7 +14,7 @@ button:focus {
 }
 
 .banner {
-  margin-top: 100px;
+  margin-top: 50px;
 
   .indexBanner {
       max-width: 100%;
@@ -24,7 +24,7 @@ button:focus {
     margin: auto;
     margin-left: 38%;
     margin-right: 38%;
-    margin-bottom: 100px;
+    margin-bottom: 50px;
     width: 24%;
     height: 200px;
     z-index: 888;
@@ -51,6 +51,18 @@ button:focus {
 
 .nh-pull-left {
   float: left;
+}
+
+.nh-hide {
+  visibility: hidden;
+}
+
+.nh-align-center {
+  text-align: center;
+}
+
+.modal-dialog {
+    top: 30%;
 }
 
 @media (#{$nh-smaller-than-tablet}) {

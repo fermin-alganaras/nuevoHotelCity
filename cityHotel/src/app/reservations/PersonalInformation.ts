@@ -8,7 +8,7 @@ export class PersonalInformation {
    nationality: String;
    reservation: Reservation;
 
-   constructor(){
+   constructor() {
      this.reservation = new Reservation;
    }
 }

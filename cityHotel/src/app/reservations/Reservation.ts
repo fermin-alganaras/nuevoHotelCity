@@ -8,8 +8,9 @@ export class Reservation {
   fromDate: NhDate;
   toDate: NhDate;
   nights: number;
+  availability: Boolean;
 
-  constructor(){
+  constructor() {
     this.adults = 1;
     this.kids = 0;
     this.nights = 1;

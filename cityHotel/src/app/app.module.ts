@@ -1,6 +1,6 @@
 import { BrowserModule } from '@angular/platform-browser';
 import { NgModule } from '@angular/core';
-import { RouterModule, Routes } from '@angular/router';
+import { RouterModule } from '@angular/router';
 import {NgbModule} from '@ng-bootstrap/ng-bootstrap';
 
 import { AppComponent } from './app.component';
@@ -12,32 +12,17 @@ import { GalleryService } from './services/gallery.service';
 import { AutomatedMailService } from './services/automated.mail.service';
 import { ReservationService } from './services/reservation.service';
 import { PricingService } from './services/pricing-service.service';
-import { PricingResolverService } from "./services/resolvers/pricing-resolver.service";
+import { MercadoPagoService } from './services/mercadoPago.service';
+import { PricingResolverService } from './services/resolvers/pricing-resolver.service';
+import { MPDocTypeResolverService } from './services/resolvers/mercadoPago/mp.docType-resolver.service';
 import { ReservationsComponent } from './reservations/reservations.component';
 import { HomeComponent } from './home/home.component';
 import { CompanyComponent } from './company/company.component';
-import { FormsModule }   from '@angular/forms';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { MyDateRangePickerModule } from './../../node_modules/mydaterangepicker/dist/my-date-range-picker.module';
 import { HttpClientModule } from '@angular/common/http';
 import { GalleryResolverService } from './services/resolvers/gallery-resolver.service';
-
-const appRoutes: Routes = [
-  { path: 'gallery',
-    component: GalleryComponent,
-    resolve: {
-      galleryImages: GalleryResolverService
-    }
-  },
-  { path: 'reservations',
-    component: ReservationsComponent,
-    resolve: {
-      rooms: PricingResolverService
-    }
-  },
-  { path: 'home', component: HomeComponent },
-  { path: 'ourselves', component: CompanyComponent },
-  { path: '', redirectTo:'/home', pathMatch: 'full' }
-];
+import { appRoutes } from './routes/appRoutes';
 
 @NgModule({
   declarations: [
@@ -47,29 +32,31 @@ const appRoutes: Routes = [
     GalleryThumbnailComponent,
     ReservationsComponent,
     HomeComponent,
-    CompanyComponent
+    CompanyComponent,
   ],
   imports: [
     BrowserModule,
     RouterModule.forRoot(appRoutes),
     NgbModule.forRoot(),
     FormsModule,
+    ReactiveFormsModule,
     MyDateRangePickerModule,
     HttpClientModule
   ],
   providers: [
     GalleryResolverService,
     PricingResolverService,
-    {provide: "CONSTANTS", useClass: ConstantsService},
-    {provide: "GalleryService", useClass: GalleryService},
-    {provide: "PricingService", useClass: PricingService},
-    {provide: "AutomatedMailService", useClass: AutomatedMailService},
-    {provide: "ReservationService", useClass: ReservationService},
-    {provide: "GalleryImagesPath", useValue: "http://localhost:8000/gallery/"},
-    {provide: "Assets", useValue: "http://localhost:8000/"},
-    {provide: "SASS_PATH", useValue: "http://localhost:8000/sass/"},
-    {provide: "HOTEL_MAIL", useValue: "fermin.alganaras@gmail.com"},
-    {provide: "HOTEL_CITY_REST_URL", useValue: "http://localhost:8000/api/cityHotel"}
+    MPDocTypeResolverService,
+    {provide: 'CONSTANTS', useClass: ConstantsService},
+    {provide: 'GalleryService', useClass: GalleryService},
+    {provide: 'PricingService', useClass: PricingService},
+    {provide: 'AutomatedMailService', useClass: AutomatedMailService},
+    {provide: 'ReservationService', useClass: ReservationService},
+    {provide: 'MercadoPagoService', useClass: MercadoPagoService},
+    {provide: 'GalleryImagesPath', useValue: 'http://localhost:9002/gallery/'},
+    {provide: 'Assets', useValue: 'http://localhost:9002/'},
+    {provide: 'HOTEL_MAIL', useValue: 'noreply@nuevohotelcity.com'},
+    {provide: 'HOTEL_CITY_REST_URL', useValue: 'http://localhost:9002/api/cityHotel'}
   ],
   bootstrap: [AppComponent]
 })

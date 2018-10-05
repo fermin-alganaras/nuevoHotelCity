@@ -10,7 +10,7 @@ export class PricingService {
     return this.http.get(url, {});
   }
 
-  constructor(@Inject("HOTEL_CITY_REST_URL") private HOTEL_CITY_REST_URL,
+  constructor(@Inject('HOTEL_CITY_REST_URL') private HOTEL_CITY_REST_URL,
               private http: HttpClient) { }
 
 }

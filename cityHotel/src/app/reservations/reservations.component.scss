@@ -1,6 +1,25 @@
 @import './../../sass/variables';
 @import './../../sass/nhStyles';
 
+.card-display {
+  border-top: 1px solid #adadad;
+  border-right: 1px solid #adadad;
+  border-radius: 8px;
+  padding: 3%;
+  width: 80%;
+  background-color: #a7a7bf38;
+  margin: 30px 0px;
+
+  .expirationTag {
+      float: right;
+      margin: -40px 40px 0px 0px;
+  }
+
+  .number-name-tag {
+    margin-top: 30px;
+  }
+}
+
 .priceContainer {
   float: right;
   margin-top: -300px;
@@ -111,6 +130,34 @@
 
 .resize-none {
   resize: none;
+}
+
+.available {
+  color: #42A948; /* green */
+  margin: 20px;
+  font-weight: bold;
+}
+
+.availability-btn {
+  margin: 25px 120px;
+
+  @media (#{$nh-smaller-than-desktop}) {
+    margin: 40px 25%;
+    width: 50%;
+  }
+
+  @media (#{$nh-smaller-than-tablet}) {
+    margin: 0 auto;
+    width: 100%;
+  }
+
+}
+
+
+.not-available {
+  color: $primaryColor;
+  margin: 20px;
+  font-weight: bold;
 }
 
 .validate {
